@@ -1,0 +1,112 @@
+[
+  {
+    "model": "api.trip",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "current_location": "San Francisco, CA",
+      "pickup_location": "37.7749,-122.4194",
+      "dropoff_location": "37.3382,-121.8863",
+      "route_instructions": [
+        "Head south on Market St",
+        "Turn right onto 4th St",
+        "Merge onto I-280 S",
+        "Continue onto US-101 S",
+        "Take exit 386B for I-880 S",
+        "Take exit 4 for Coleman Ave",
+        "Turn right onto Coleman Ave",
+        "Destination will be on the right"
+      ],
+      "cycle_used": "Electric Bike",
+      "createdOn": "2023-05-15"
+    }
+  },
+  {
+    "model": "api.trip",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "current_location": "New York, NY",
+      "pickup_location": "40.7128,-74.0060",
+      "dropoff_location": "40.6782,-73.9442",
+      "route_instructions": [
+        "Head east on Chambers St",
+        "Turn right onto Centre St",
+        "Continue onto Park Row",
+        "Turn right onto Brooklyn Bridge",
+        "Continue onto Adams St",
+        "Turn left onto Tillary St",
+        "Turn right onto Flatbush Ave",
+        "Destination will be on the left"
+      ],
+      "cycle_used": "Mountain Bike",
+      "createdOn": "2023-06-22"
+    }
+  },
+  {
+    "model": "api.trip",
+    "pk": 3,
+    "fields": {
+      "user": 2,
+      "current_location": "Chicago, IL",
+      "pickup_location": "41.8781,-87.6298",
+      "dropoff_location": "41.9484,-87.6553",
+      "route_instructions": [
+        "Head north on N Michigan Ave",
+        "Turn left onto E Wacker Dr",
+        "Turn right onto N State St",
+        "Continue onto N Clark St",
+        "Turn right onto W Division St",
+        "Turn left onto N Wells St",
+        "Turn right onto W North Ave",
+        "Destination will be on the right"
+      ],
+      "cycle_used": "Road Bike",
+      "createdOn": "2023-07-10"
+    }
+  },
+  {
+    "model": "api.trip",
+    "pk": 4,
+    "fields": {
+      "user": 2,
+      "current_location": "Los Angeles, CA",
+      "pickup_location": "34.0522,-118.2437",
+      "dropoff_location": "34.0211,-118.4814",
+      "route_instructions": [
+        "Head west on W 7th St",
+        "Turn left onto S Figueroa St",
+        "Turn right onto W Olympic Blvd",
+        "Continue onto Santa Monica Blvd",
+        "Turn left onto Avenue of the Stars",
+        "Turn right onto Constellation Blvd",
+        "Turn left onto Century Park West",
+        "Destination will be on the left"
+      ],
+      "cycle_used": "Hybrid Bike",
+      "createdOn": "2023-08-05"
+    }
+  },
+  {
+    "model": "api.trip",
+    "pk": 5,
+    "fields": {
+      "user": 3,
+      "current_location": "Seattle, WA",
+      "pickup_location": "47.6062,-122.3321",
+      "dropoff_location": "47.6740,-122.1215",
+      "route_instructions": [
+        "Head east on Pine St",
+        "Turn right onto Boren Ave",
+        "Turn left onto E Olive Way",
+        "Continue onto E John St",
+        "Turn right onto 23rd Ave E",
+        "Turn left onto SR-520 E",
+        "Take exit 14 for 148th Ave NE",
+        "Destination will be on the right"
+      ],
+      "cycle_used": "Commuter Bike",
+      "createdOn": "2023-09-18"
+    }
+  }
+]
