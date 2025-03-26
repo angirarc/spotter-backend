@@ -1,3 +1,4 @@
+import json
 import datetime
 from rest_framework import status
 from rest_framework.response import Response
@@ -90,7 +91,8 @@ def trip_operations(request):
     else:
         data = request.data
         data['user'] = request.user.id
-        data['createdOn'] = datetime.now()
+        data['createdOn'] = datetime.date.today()
+        # print(json.dumps(data))
 
         serializer = TripSerializer(data=data)
         if serializer.is_valid():
@@ -136,9 +138,9 @@ def trip_log_details(request, id):
     else:
         data = request.data
         data['trip'] = trip.id
-        data['createdOn'] = datetime.now()
+        data['createdOn'] = datetime.date.today()
 
-        serializer = LogSerializer(log, data=data)
+        serializer = LogSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
