@@ -91,7 +91,7 @@ def trip_operations(request):
     else:
         data = request.data
         data['user'] = request.user.id
-        data['createdOn'] = datetime.date.today()
+        data['createdOn'] = datetime.datetime.now()
         # print(json.dumps(data))
 
         serializer = TripSerializer(data=data)
@@ -112,8 +112,19 @@ def trip_details(request, id):
     if (request.method == 'GET'):
         serializer = TripSerializer(trip)
         return Response(serializer.data)
-    elif (request.method == 'PATCH'):
-        serializer = TripSerializer(trip, data=request.data)
+
+    if (trip.user.id != request.user.id):
+        return Response({'error': 'This trip is not assigned to you'}, status=status.HTTP_403_FORBIDDEN)
+
+    if (request.method == 'PATCH'):
+        if (trip.end_time != None):
+            return Response({'error': 'You cannot update an already concluded trip'}, status=status.HTTP_400_BAD_REQUEST)
+
+        data = request.data
+        data['user'] = request.user.id
+        data['createdOn'] = datetime.datetime.now()
+
+        serializer = TripSerializer(trip, data=data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
@@ -132,17 +143,28 @@ def trip_log_details(request, id):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if (request.method == 'GET'):
-        logs = DailyLog.objects.all(trip=id)
+        logs = DailyLog.objects.filter(trip=id)
         serializer = LogSerializer(logs, many=True)
         return Response(serializer.data)
     else:
+        if (trip.user.id != request.user.id):
+            return Response({'error': 'This trip is not assigned to you'}, status=status.HTTP_403_FORBIDDEN)
+
+        if (trip.end_time != None):
+            return Response({'error': 'You cannot add logs to an already concluded trip'}, status=status.HTTP_400_BAD_REQUEST)
+
         data = request.data
         data['trip'] = trip.id
-        data['createdOn'] = datetime.date.today()
+        data['createdOn'] = datetime.datetime.now()
 
         serializer = LogSerializer(data=data)
         if serializer.is_valid():
             serializer.save()
+            
+            if (trip.start_time == None):
+                trip.start_time = datetime.datetime.now()
+                trip.save()
+
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -165,3 +187,30 @@ def log_details(request, id):
     elif (request.method == 'DELETE'):
         log.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+@api_view(['PATCH'])
+@protected
+def end_trip(request, id):
+    try:
+        trip = Trip.objects.get(id=id)
+    except Trip.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if (trip.user.id != request.user.id):
+        return Response({'error': 'This trip is not assigned to you'}, status=status.HTTP_403_FORBIDDEN)
+
+    if (trip.end_time != None):
+        return Response({'error': 'This trip has already been concluded'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    logs = DailyLog.objects.filter(trip=id)
+    total_driving_time = 0
+
+    for log in logs:
+        total_breaks = sum([rest_break for rest_break in log.rest_breaks])
+        total_driving_time += log.driving_time + total_breaks
+    
+    trip.total_driving_time = total_driving_time
+    trip.end_time = datetime.datetime.now()
+    trip.save()
+    
+    return Response(status=status.HTTP_200_OK)

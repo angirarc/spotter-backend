@@ -15,26 +15,26 @@ class Trip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pickup_location = models.CharField(max_length=255)
     dropoff_location = models.CharField(max_length=255)
-    start_time = models.DateField()
-    end_time = models.DateField()
+    start_time = models.DateTimeField(null=True)
+    end_time = models.DateTimeField(null=True)
     route_instructions = ArrayField(
         models.CharField(max_length=255, blank=True),
         size=8,
     )
     cycle_used = models.CharField(max_length=50)
-    createdOn = models.DateField()
+    total_driving_time = models.FloatField(blank=True, default=0)
+    createdOn = models.DateTimeField()
 
     def __str__(self):
         return json.dumps(self)
 
 class DailyLog(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
-    current_location = models.CharField(max_length=255)
-    driving_time = models.IntegerField()
-    rest_breaks = ArrayField(
-        models.CharField(max_length=255, blank=True)
-    )
-    createdOn = models.DateField()
+    current_location = models.CharField(max_length=100)
+    memo = models.CharField(max_length=255)
+    driving_time = models.FloatField()
+    rest_breaks = ArrayField(models.FloatField())
+    createdOn = models.DateTimeField()
 
     def __str__(self):
         return json.dumps(self)
