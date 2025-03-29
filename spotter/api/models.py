@@ -13,8 +13,10 @@ class User(models.Model):
 
 class Trip(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pickup_location = models.CharField(max_length=255)
-    dropoff_location = models.CharField(max_length=255)
+    pickup_location = models.CharField(max_length=100)
+    pickup_name = models.CharField(max_length=100)
+    dropoff_location = models.CharField(max_length=100)
+    dropoff_name = models.CharField(max_length=100)
     start_time = models.DateTimeField(null=True)
     end_time = models.DateTimeField(null=True)
     route_instructions = ArrayField(
@@ -31,6 +33,7 @@ class Trip(models.Model):
 class DailyLog(models.Model):
     trip = models.ForeignKey(Trip, on_delete=models.CASCADE)
     current_location = models.CharField(max_length=100)
+    location_name = models.CharField(max_length=100)
     memo = models.CharField(max_length=255)
     driving_time = models.FloatField()
     rest_breaks = ArrayField(models.FloatField())

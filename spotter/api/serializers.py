@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ['id', 'pickup_location', 'dropoff_location', 'start_time', 'end_time', 'total_driving_time', 'route_instructions', 'cycle_used', 'createdOn', 'user']
+        fields = ['id', 'pickup_location', 'pickup_name', 'dropoff_location', 'dropoff_name', 'start_time', 'end_time', 'total_driving_time', 'route_instructions', 'cycle_used', 'createdOn', 'user']
         extra_kwargs = {
             'start_time': {'read_only': True},
             'end_time': {'read_only': True},
@@ -22,7 +22,7 @@ class TripSerializer(serializers.ModelSerializer):
 class LogSerializer(serializers.ModelSerializer):
     class Meta:
         model = DailyLog
-        fields = ['id', 'trip', 'current_location', 'memo', 'driving_time', 'rest_breaks', 'createdOn']
+        fields = ['id', 'trip', 'current_location', 'location_name', 'memo', 'driving_time', 'rest_breaks', 'createdOn']
         # extra_kwargs = {
         #     'createdOn': {'read_only': True}
         # }

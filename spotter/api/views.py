@@ -17,6 +17,12 @@ def get_users(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@protected
+def me(request):
+    serializer = UserSerializer(request.user)
+    return Response(serializer.data)
+
 @api_view(['GET', 'PATCH', 'DELETE'])
 @protected
 def user_details(request, id):
