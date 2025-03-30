@@ -32,7 +32,7 @@ tmpPostgres = urlparse(database_url) if database_url else None
 SECRET_KEY = 'django-insecure-8dd%%7^2!-vxrysa!rxps&q=$!*4n6gtaifflild$0hhh3h7@8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG")
+DEBUG = os.getenv("DEBUG") === 'True'
 
 ALLOWED_HOSTS = ['*']
 
@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    # 'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
