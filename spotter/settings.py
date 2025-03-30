@@ -32,7 +32,7 @@ tmpPostgres = urlparse(database_url) if database_url else None
 SECRET_KEY = 'django-insecure-8dd%%7^2!-vxrysa!rxps&q=$!*4n6gtaifflild$0hhh3h7@8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") === 'True'
+DEBUG = os.getenv("DEBUG") == 'True'
 
 ALLOWED_HOSTS = ['*']
 
