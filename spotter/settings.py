@@ -64,37 +64,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Instead of allowing all origins, specify which ones are allowed
-CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://spotter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
-
-# Enable credentials in CORS requests (cookies, authorization headers)
-CORS_ALLOW_CREDENTIALS = True
-
-# Allow specific headers in CORS requests
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-csrftoken',
-    'x-requested-with',
-]
-
-# Allow specific methods in CORS requests
-CORS_ALLOW_METHODS = [
-    'DELETE',
-    'GET',
-    'OPTIONS',
-    'PATCH',
-    'POST',
-    'PUT',
-]
+# Temporarily allow all origins for debugging
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Add CSRF trusted origins to allow POST requests from these domains
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spotter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app', 'https://spoter-frontend.vercel.app']
+
+# Unfortunately, Django doesn't support regex for CSRF_TRUSTED_ORIGINS
+# We need to add specific domains as they are deployed
 
 ROOT_URLCONF = 'spotter.urls'
 
