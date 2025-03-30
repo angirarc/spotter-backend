@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -64,10 +64,37 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# Instead of allowing all origins, specify which ones are allowed
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000', 'https://spotter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
+
+# Enable credentials in CORS requests (cookies, authorization headers)
+CORS_ALLOW_CREDENTIALS = True
+
+# Allow specific headers in CORS requests
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Allow specific methods in CORS requests
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 # Add CSRF trusted origins to allow POST requests from these domains
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spotter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
 
 ROOT_URLCONF = 'spotter.urls'
 
