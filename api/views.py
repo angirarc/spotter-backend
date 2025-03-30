@@ -3,6 +3,7 @@ import datetime
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.hashers import make_password, check_password
 
 from .utils import generate_token
@@ -25,6 +26,7 @@ def me(request):
 
 @api_view(['GET', 'PATCH', 'DELETE'])
 @protected
+@csrf_exempt
 def user_details(request, id):
     try:
         user = User.objects.get(id=id)
@@ -46,6 +48,7 @@ def user_details(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['POST'])
+@csrf_exempt
 def create_user(request):
     data = request.data
 
@@ -67,6 +70,7 @@ def create_user(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
+@csrf_exempt
 def login(request):
     email = request.data.get('email')
     password = request.data.get('password')
@@ -88,6 +92,7 @@ def login(request):
     })
 
 @api_view(['GET', 'POST'])
+@csrf_exempt
 @protected
 def trip_operations(request):
     if (request.method == 'GET'):
@@ -108,6 +113,7 @@ def trip_operations(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET', 'PATCH', 'DELETE'])
+@csrf_exempt
 @protected
 def trip_details(request, id):
     try:
@@ -141,6 +147,7 @@ def trip_details(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['GET', 'POST'])
+@csrf_exempt
 @protected
 def trip_log_details(request, id):
     try:
@@ -176,6 +183,7 @@ def trip_log_details(request, id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PATCH', 'DELETE'])
+@csrf_exempt
 @protected
 def log_details(request, id):
     try:
@@ -195,6 +203,7 @@ def log_details(request, id):
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @api_view(['PATCH'])
+@csrf_exempt
 @protected
 def end_trip(request, id):
     try:
