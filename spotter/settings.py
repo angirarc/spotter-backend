@@ -29,10 +29,10 @@ tmpPostgres = urlparse(database_url) if database_url else None
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-8dd%%7^2!-vxrysa!rxps&q=$!*4n6gtaifflild$0hhh3h7@8'
+SECRET_KEY = os.getenv("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv("DEBUG") == 'True'
+DEBUG = os.getenv("DEBUG")
 
 ALLOWED_HOSTS = ['*']
 
@@ -64,14 +64,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# Temporarily allow all origins for debugging
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Add CSRF trusted origins to allow POST requests from these domains
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app', 'https://spoter-frontend.vercel.app']
-
-# Unfortunately, Django doesn't support regex for CSRF_TRUSTED_ORIGINS
-# We need to add specific domains as they are deployed
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
 
 ROOT_URLCONF = 'spotter.urls'
 
