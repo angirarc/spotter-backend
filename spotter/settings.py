@@ -64,7 +64,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+# CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000', 
+    'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app'
+]
 
 # Add CSRF trusted origins to allow POST requests from these domains
 CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://spoter-frontend-n41lrvoa9-angira-collins-reinhardts-projects.vercel.app']
